@@ -66,6 +66,7 @@ CREATE TABLE `DW_station_state` (
   `available_bikes` int(11) DEFAULT NULL,
   `last_update` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  INDEX station_time (id_station,last_update),
   KEY `id_station_idx` (`id_station`),
   CONSTRAINT `id_st` FOREIGN KEY (`id_station`) REFERENCES `DW_station` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -75,6 +76,7 @@ CREATE TABLE `DW_station_state` (
 CREATE TABLE `DW_station_means` (
   `id` int(11) NOT NULL,
   `id_station` int(11) NOT NULL,
+  `week_day` int(3) DEFAULT NULL,
   `range_start` int(11) DEFAULT NULL,
   `range_end` int(11) DEFAULT NULL,
   `movement_mean` float DEFAULT NULL,
@@ -97,8 +99,7 @@ CREATE TABLE `DW_station_sampled` (
   `movement_mean` float DEFAULT NULL,
   `availability_mean` float DEFAULT NULL,
   `velib_nb_mean` float DEFAULT NULL,
-  `movement_mean_rain` float DEFAULT NULL,
-  `movement_mean_sun` float DEFAULT NULL,
+  `weather` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX station_time (id_station,timestamp_start),
   KEY `id_station_idx` (`id_station`),
