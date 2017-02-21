@@ -1,4 +1,6 @@
-package org.sioecp.service;
+package org.sioecp.service.datacleaning;
+
+import org.sioecp.service.datacleaning.engine.WeatherDataCleaner;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -16,6 +18,8 @@ public class DataCleaningService {
         // Clean duplicate rows
         // Add city if no exist (<< or other behaviour? How to match cities automatically?)
         //
+
+        WeatherDataCleaner cleaner = new WeatherDataCleaner();
 
         return "Clean OK";
     }

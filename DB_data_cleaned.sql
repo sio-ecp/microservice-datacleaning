@@ -65,6 +65,7 @@ CREATE TABLE `DW_station_state` (
   `available_bike_stands` int(11) DEFAULT NULL,
   `available_bikes` int(11) DEFAULT NULL,
   `last_update` int(11) DEFAULT NULL,
+  `movements` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   INDEX station_time (id_station,last_update),
   KEY `id_station_idx` (`id_station`),

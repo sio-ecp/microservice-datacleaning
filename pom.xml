@@ -15,7 +15,7 @@
     <name>Data Cleaning Microservice</name>
 
     <properties>
-        <microservice.mainClass>org.sioecp.service.Application</microservice.mainClass>
+        <microservice.mainClass>org.sioecp.service.datacleaning.Application</microservice.mainClass>
     </properties>
 
 </project>

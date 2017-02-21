@@ -1,4 +1,4 @@
-package org.sioecp.service;
+package org.sioecp.service.datacleaning;
 
 import org.wso2.msf4j.MicroservicesRunner;
 
