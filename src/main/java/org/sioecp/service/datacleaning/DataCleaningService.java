@@ -1,6 +1,7 @@
 package org.sioecp.service.datacleaning;
 
 import org.sioecp.service.datacleaning.engine.WeatherDataCleaner;
+import org.sioecp.service.datacleaning.tools.SqlConnector;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -18,8 +19,10 @@ public class DataCleaningService {
         // Clean duplicate rows
         // Add city if no exist (<< or other behaviour? How to match cities automatically?)
         //
+        SqlConnector sql = new SqlConnector();
+        sql.importPropertiesFromFile("db.properties");
 
-        WeatherDataCleaner cleaner = new WeatherDataCleaner();
+        WeatherDataCleaner cleaner = new WeatherDataCleaner(sql);
 
         return "Clean OK";
     }
