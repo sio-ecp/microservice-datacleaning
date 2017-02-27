@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -82,15 +84,27 @@ public class SqlConnector {
         return status;
     }
 
-    public ResultSet execRead(String query){
-        ResultSet result = null;
+    public List<List<String>> execRead(String query){
+        List<List<String>> resList = null;
         Connection connection = connect();
         if (connection == null)
             return null;
 
         try {
             Statement statement = connection.createStatement();
-            result = statement.executeQuery(query);
+            ResultSet result = statement.executeQuery(query);
+            ResultSetMetaData rsmd = result.getMetaData();
+            int numCols = rsmd.getColumnCount();
+            resList = new ArrayList<>();
+
+            while (result.next()) {
+                List<String> row = new ArrayList<>(numCols);
+                int i = 1;
+                while (i <= numCols) {
+                    row.add(result.getString(i++));
+                }
+                resList.add(row);
+            }
         }
         catch (SQLException e){
             return null;
@@ -98,6 +112,6 @@ public class SqlConnector {
         finally {
             disconnect(connection);
         }
-        return result;
+        return resList;
     }
 }

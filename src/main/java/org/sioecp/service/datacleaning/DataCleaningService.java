@@ -11,20 +11,37 @@ import javax.ws.rs.PathParam;
 @Path("/clean")
 public class DataCleaningService {
 
+    private String propertiesPath;
+
+    public DataCleaningService(){
+        // Default value
+        this.propertiesPath = "db.properties";
+    }
+
+    public DataCleaningService(String propertiesPath){
+        this.propertiesPath = propertiesPath;
+    }
+
     @GET
     @Path("/weather")
     public String cleanWeather() {
 
         // Actions to perform for WEATHER
-        // Clean duplicate rows
-        // Add city if no exist (<< or other behaviour? How to match cities automatically?)
-        //
-        SqlConnector sql = new SqlConnector();
-        sql.importPropertiesFromFile("db.properties");
 
+        // Setup SQL connection
+        SqlConnector sql = new SqlConnector();
+        sql.importPropertiesFromFile(propertiesPath);
+
+        // Init cleaner class
         WeatherDataCleaner cleaner = new WeatherDataCleaner(sql);
 
-        return "Clean OK";
+        // Start cleaning
+        boolean state = cleaner.runCleaning();
+
+        if (state)
+            return "{status:'OK', cleanedRows:"+cleaner.cleanedRows+"}";
+        else
+            return "{status:'FAILED'}";
     }
 
     @GET
