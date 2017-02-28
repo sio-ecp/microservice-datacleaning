@@ -19,7 +19,6 @@ public class SqlConnector {
     private String dbpassword = "";
 
     public SqlConnector(){
-
         try {
             Class.forName( "com.mysql.cj.jdbc.Driver" );
         } catch ( ClassNotFoundException e ) {
@@ -49,7 +48,7 @@ public class SqlConnector {
     }
 
     private Connection connect(){
-        Connection connection = null;
+        Connection connection;
         try {
             connection = DriverManager.getConnection(dburl, dbuser, dbpassword);
         }
@@ -69,14 +68,14 @@ public class SqlConnector {
         Connection connection = connect();
         int status = 1;
         if (connection == null)
-            return 1;
+            return status;
 
         try {
             Statement statement = connection.createStatement();
             status = statement.executeUpdate(query);
         }
         catch (SQLException e){
-            return 1;
+            return status;
         }
         finally {
             disconnect(connection);
@@ -85,7 +84,7 @@ public class SqlConnector {
     }
 
     public List<List<String>> execRead(String query){
-        List<List<String>> resList = null;
+        List<List<String>> resList;
         Connection connection = connect();
         if (connection == null)
             return null;

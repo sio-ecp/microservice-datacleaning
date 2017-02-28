@@ -15,7 +15,7 @@ public class DataCleaningService {
 
     public DataCleaningService(){
         // Default value
-        this.propertiesPath = "db.properties";
+        this.propertiesPath = "config.properties";
     }
 
     public DataCleaningService(String propertiesPath){

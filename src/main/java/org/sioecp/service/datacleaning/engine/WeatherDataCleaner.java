@@ -11,7 +11,7 @@ import java.util.Map;
  */
 public class WeatherDataCleaner {
 
-    private static int MAXROWS = 1000;
+    private static final int MAXROWS = 1000;
     private SqlConnector dbconnector;
     public int cleanedRows = 0;
     public int lastCleanedRow = -1;
@@ -99,8 +99,4 @@ public class WeatherDataCleaner {
         return Integer.parseInt(res.get(0));
     }
 
-    public void testInsert(String str){
-        //dbconnector.execWrite("INSERT INTO test VALUES (NULL,'"+str+"')");
-        System.out.println(str);
-    }
 }
