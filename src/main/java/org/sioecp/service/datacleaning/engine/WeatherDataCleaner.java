@@ -2,8 +2,6 @@ package org.sioecp.service.datacleaning.engine;
 
 import org.sioecp.service.datacleaning.tools.SqlConnector;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +14,7 @@ public class WeatherDataCleaner {
     private static int MAXROWS = 1000;
     private SqlConnector dbconnector;
     public int cleanedRows = 0;
+    public int lastCleanedRow = -1;
 
     public WeatherDataCleaner(SqlConnector sql){
         dbconnector = sql;
@@ -45,7 +44,8 @@ public class WeatherDataCleaner {
         setLastCleanedRow(maxRow);
 
         // Update counter
-        cleanedRows = maxRow - firstRowToClean;
+        cleanedRows = Math.max(maxRow - firstRowToClean, 0);
+        lastCleanedRow = maxRow;
 
         return true;
     }

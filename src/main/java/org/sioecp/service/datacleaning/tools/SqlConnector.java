@@ -14,16 +14,16 @@ import java.util.Properties;
  */
 public class SqlConnector {
 
-    public String dburl = "jdbc:mysql://localhost:3306/db";
-    public String dbuser = "root";
-    public String dbpassword = "";
+    private String dburl = "jdbc:mysql://localhost:3306/db";
+    private String dbuser = "root";
+    private String dbpassword = "";
 
     public SqlConnector(){
 
         try {
-            Class.forName( "com.mysql.jdbc.Driver" );
+            Class.forName( "com.mysql.cj.jdbc.Driver" );
         } catch ( ClassNotFoundException e ) {
-
+            System.out.println("SQL Driver not found.");
         }
     }
 

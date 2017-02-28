@@ -39,7 +39,7 @@ public class DataCleaningService {
         boolean state = cleaner.runCleaning();
 
         if (state)
-            return "{status:'OK', cleanedRows:"+cleaner.cleanedRows+"}";
+            return "{status:'OK',cleanedRows:"+cleaner.cleanedRows+",lastCleanedRow:"+cleaner.lastCleanedRow+"}";
         else
             return "{status:'FAILED'}";
     }
