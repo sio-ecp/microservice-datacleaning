@@ -45,7 +45,7 @@ public class DataCleaningService {
     }
 
     @GET
-    @Path("/station")
+    @Path("/stations")
     public String cleanStation() {
 
         // Actions to perform for STATION

@@ -11,10 +11,13 @@ Les paramètres nécessaires sont :
 * dbuser
 * dbpassword
 
-## Utilisation
+## Lancement
  `java -jar Cleaning-Service.jar [-conf <propertiesFile>] [-port <port>]`
  
  Paramètres :
  * port : port sur lequel le micro-service sera en écoute
  * conf : emplacement du fichier de configuration
- 
+
+## Utilisation
+`http://localhost:8080/clean/weather`
+`http://localhost:8080/clean/stations`
