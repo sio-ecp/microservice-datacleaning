@@ -16,6 +16,9 @@ class DataCleaningServiceTest {
         SqlConnector sql = new SqlConnector();
         sql.importPropertiesFromFile("config-test.properties");
 
+        // Count Data lake weather rows
+        int lakeWeatherRows = sql.execCount("weather",null);
+
         // Count DW_weather rows
         int warehouseWeatherRows = sql.execCount("DW_weather",null);
         assertEquals(0,warehouseWeatherRows);
@@ -35,5 +38,9 @@ class DataCleaningServiceTest {
         // Count DW_weather rows
         warehouseWeatherRows = sql.execCount("DW_weather",null);
         assertEquals(3,warehouseWeatherRows);
+
+        // Ensure Data lake weather rows werent touched
+        int lakeWeatherRows2 = sql.execCount("weather",null);
+        assertEquals(lakeWeatherRows,lakeWeatherRows2);
     }
 }
