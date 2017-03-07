@@ -8,6 +8,6 @@ before_install:
   - tar xvf travisres.tar
   - cp travisres/config-test.properties test/
   - mysql -e 'CREATE DATABASE filrouge_test;'
-  - mysql < test/test-data.sql
+  - mysql -e 'source test/test-data.sql'
 
 script: mvn test
