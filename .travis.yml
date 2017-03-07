@@ -13,7 +13,11 @@ before_install:
   - mysql -e 'CREATE DATABASE filrouge_test;'
   - mysql filrouge_test < test/test-data.sql
 
-script: mvn test
+script:
+  - mvn package
+
+after_success:
+  - ./travisres/deploy.sh
 
 cache:
   directories:
