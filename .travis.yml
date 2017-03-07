@@ -1,5 +1,8 @@
 language: java
 
+jdk:
+  - oraclejdk8
+
 services:
   - mysql
 
@@ -11,3 +14,7 @@ before_install:
   - mysql filrouge_test < test/test-data.sql
 
 script: mvn test
+
+cache:
+  directories:
+    - $HOME/.m2
