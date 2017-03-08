@@ -55,11 +55,11 @@ public class WeatherDataCleaner {
         dbconnector.execWrite("INSERT INTO DW_weather (id, city_id, weather_group, pressure, " +
                 "humidity_percentage, temperature, min_temperature, " +
                 "max_temperature, wind_speed, wind_direction, cloudiness_percentage, rain_quantity, " +
-                "snow_quantity, calculation_time) " +
+                "snow_quantity, sun_set, sun_rise, calculation_time) " +
                 "SELECT DISTINCT NULL, "+id_city+", weather.weather_group, weather.pressure, weather.humidity_percentage, " +
                 "  weather.temperature, weather.min_temperature, weather.max_temperature, weather.wind_speed, " +
                 "  weather.wind_direction, weather.cloudiness_percentage, weather.rain_quantity, " +
-                "weather.snow_quantity, weather.calculation_time " +
+                "weather.snow_quantity, weather.sun_set, weather.sun_rise, weather.calculation_time " +
                 "FROM weather " +
                 "WHERE id_weather >= "+firstRow+" AND id_weather <= "+lastRow+" AND city_name='"+city_name+"'");
     }
