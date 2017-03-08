@@ -1,5 +1,6 @@
 package org.sioecp.service.datacleaning;
 
+import org.sioecp.service.datacleaning.engine.StationDataCleaner;
 import org.sioecp.service.datacleaning.engine.WeatherDataCleaner;
 import org.sioecp.service.datacleaning.tools.SqlConnector;
 
@@ -48,14 +49,21 @@ public class DataCleaningService {
     @Path("/stations")
     public String cleanStation() {
 
-        // Actions to perform for STATION
-        // Clean duplicate rows
-        // Add city if no exist (<< or other behaviour?)
-        // Add station if no exist
-        // Process movements (<< here is more efficient, but not really part of cleaning...)
+        // Setup SQL connection
+        SqlConnector sql = new SqlConnector();
+        sql.importPropertiesFromFile(propertiesPath);
 
+        // Init cleaner class
+        StationDataCleaner cleaner = new StationDataCleaner(sql);
 
-        return "Clean OK";
+        // Start cleaning
+        boolean state = cleaner.runCleaning();
+
+        if (state)
+            return "{status:'OK',cleanedRows:"+cleaner.cleanedRows+",lastCleanedRow:"+cleaner.lastCleanedRow+"}";
+        else
+            return "{status:'FAILED'}";
+
     }
 
 }
