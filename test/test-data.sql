@@ -96,8 +96,6 @@ CREATE TABLE `DW_weather` (
   `cloudiness_percentage` int(11) DEFAULT NULL,
   `rain_quantity` int(11) DEFAULT NULL,
   `snow_quantity` int(11) DEFAULT NULL,
-  `sun_set` int(11) DEFAULT NULL,
-  `sun_rise` int(11) DEFAULT NULL,
   `calculation_time` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `city_id_idx` (`city_id`),
