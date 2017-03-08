@@ -1,0 +1,24 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+services:
+  - mysql
+
+before_install:
+  - openssl aes-256-cbc -K $encrypted_12ed499335b9_key -iv $encrypted_12ed499335b9_iv -in travisres.tar.enc -out travisres.tar -d
+  - tar xvf travisres.tar
+  - cp travisres/config-test.properties test/
+  - mysql -e 'CREATE DATABASE filrouge_test;'
+  - mysql filrouge_test < test/test-data.sql
+
+script:
+  - mvn package
+
+after_success:
+  - ./travisres/deploy.sh
+
+cache:
+  directories:
+    - $HOME/.m2
