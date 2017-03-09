@@ -28,7 +28,7 @@ public class WeatherDataCleaner {
         int lastAddedRow = getLastDLRow();
 
         // Set max row to clean
-        int maxRow = Math.min(firstRowToClean+MAXROWS,lastAddedRow);
+        int maxRow = Math.min(firstRowToClean+MAXROWS,lastAddedRow+1);
 
         // Retrieve Cities list
         Map<String, Integer> cities = getCitiesList();
@@ -40,12 +40,12 @@ public class WeatherDataCleaner {
             fillCleanedTable(firstRowToClean, maxRow, city.getValue(), city.getKey());
         }
 
-        // Set last cleaned row
-        setLastCleanedRow(maxRow);
-
         // Update counter
         cleanedRows = Math.max(maxRow - firstRowToClean, 0);
-        lastCleanedRow = maxRow;
+        lastCleanedRow = maxRow-1;
+
+        // Set last cleaned row
+        setLastCleanedRow(lastCleanedRow);
 
         return true;
     }
@@ -61,7 +61,7 @@ public class WeatherDataCleaner {
                 "  weather.wind_direction, weather.cloudiness_percentage, weather.rain_quantity, " +
                 "weather.snow_quantity, weather.sun_set, weather.sun_rise, weather.calculation_time " +
                 "FROM weather " +
-                "WHERE id_weather >= "+firstRow+" AND id_weather <= "+lastRow+" AND city_name='"+city_name+"'");
+                "WHERE id_weather >= "+firstRow+" AND id_weather < "+lastRow+" AND city_name='"+city_name+"'");
     }
 
     private void setLastCleanedRow(int lastRow){

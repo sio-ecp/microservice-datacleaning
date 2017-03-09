@@ -28,7 +28,7 @@ public class StationDataCleaner {
         int lastAddedRow = getLastDLRow();
 
         // Set max row to clean
-        int maxRow = Math.min(firstRowToClean+MAXROWS,lastAddedRow);
+        int maxRow = Math.min(firstRowToClean+MAXROWS,lastAddedRow+1);
 
         // Retrieve Cities list
         Map<String, Integer> cities = getCitiesList();
@@ -40,12 +40,12 @@ public class StationDataCleaner {
             fillCleanedTable(firstRowToClean, maxRow, city.getValue(), city.getKey());
         }
 
-        // Set last cleaned row
-        setLastCleanedRow(maxRow);
-
         // Update counter
         cleanedRows = Math.max(maxRow - firstRowToClean, 0);
-        lastCleanedRow = maxRow;
+        lastCleanedRow = maxRow-1;
+
+        // Set last cleaned row
+        setLastCleanedRow(lastCleanedRow);
 
         return true;
     }
@@ -57,7 +57,7 @@ public class StationDataCleaner {
                 " SELECT DISTINCT NULL, Station.station_number,"+id_city+",Station.station_name,Station.address," +
                 " Station.banking, Station.bonus, Station.latitude, Station.longitude,StationElevation.elevation"+
                 " FROM Station,StationElevation" +
-                " WHERE Station.id_station >= "+firstRow+" AND Station.id_station <= "+lastRow+" AND city_name='"+city_name+"'" +
+                " WHERE Station.id_station >= "+firstRow+" AND Station.id_station < "+lastRow+" AND city_name='"+city_name+"'" +
                 " and Station.station_number=StationElevation.station_number and Station.contract_name=StationElevation.contract_name");
     }
 
