@@ -5,29 +5,30 @@ import org.sioecp.service.datacleaning.tools.SqlConnector;
 import java.util.List;
 
 
-public class StationDataCleaner extends DataCleaner {
+public class StationStateDataCleaner extends DataCleaner {
 
 
 
-    public StationDataCleaner(SqlConnector sql){
+    public StationStateDataCleaner(SqlConnector sql){
         dbconnector = sql;
     }
 
 
     // Copies Data Lake station table into DataWarehouse table, removes duplicates and separate city from it
     protected void fillCleanedTable(int firstRow, int lastRow, int id_city, String city_name){
-        dbconnector.execWrite("INSERT INTO DW_station(id,station_number,city_id,station_name,address,banking,bonus,latitude,longitude,elevation)" +
-                " SELECT DISTINCT NULL, Station.station_number,"+id_city+",Station.station_name,Station.address,Station.banking," +
-                " Station.bonus, Station.latitude, Station.longitude, StationElevation.elevation" +
-                " FROM Station join StationElevation on Station.station_number=StationElevation.station_number and Station.contract_name=StationElevation.contract_name" +
-                " WHERE Station.id_station >= "+firstRow+" AND Station.id_station <= "+lastRow+" AND city_name='"+city_name+"'"+
-                " and not exists (select 1 from DW_station where station_number=Station.station_number)");
+        dbconnector.execWrite("INSERT INTO DW_station_state(id,id_Station,status,operational_bike_stands,available_bike_stands,"+
+                "available_bikes,last_update)"+
+                " SELECT DISTINCT NULL, DW_station.id,Station.status,Station.operational_bike_stands," +
+                " Station.available_bike_stands, Station.available_bikes, Station.last_update"+
+                " FROM Station,DW_station" +
+                " WHERE Station.id_station >= "+firstRow+" AND Station.id_station <= "+lastRow+
+                " and Station.station_number=DW_station.station_number");
     }
 
 
     protected void setLastCleanedRow(int lastRow){
         dbconnector.execWrite("UPDATE MS_DataCleaning_conf SET value='"+lastRow+"' " +
-                "WHERE name='station_last_cleaned_row'");
+                "WHERE name='station_state_last_cleaned_row'");
     }
 
 
@@ -43,7 +44,7 @@ public class StationDataCleaner extends DataCleaner {
     // Returns the latest cleaned row from the configuration table
     protected int getLastCleanedRow() {
         List<String> res = dbconnector.execRead("SELECT value FROM MS_DataCleaning_conf " +
-                "WHERE name='station_last_cleaned_row'").get(0);
+                "WHERE name='station_state_last_cleaned_row'").get(0);
         return Integer.parseInt(res.get(0));
     }
 

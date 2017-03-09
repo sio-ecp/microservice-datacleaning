@@ -2,6 +2,7 @@ package org.sioecp.service.datacleaning;
 
 import org.sioecp.service.datacleaning.engine.DataCleaner;
 import org.sioecp.service.datacleaning.engine.StationDataCleaner;
+import org.sioecp.service.datacleaning.engine.StationStateDataCleaner;
 import org.sioecp.service.datacleaning.engine.WeatherDataCleaner;
 import org.sioecp.service.datacleaning.tools.SqlConnector;
 
@@ -52,6 +53,28 @@ public class DataCleaningService {
 
         // Init cleaner class
         StationDataCleaner cleaner = new StationDataCleaner(sql);
+
+        // Start cleaning
+        boolean state = cleaner.runCleaning();
+
+        if (state)
+            return "{status:'OK',cleanedRows:"+cleaner.cleanedRows+",lastCleanedRow:"+cleaner.lastCleanedRow+"}";
+        else
+            return "{status:'FAILED'}";
+
+    }
+
+
+    @GET
+    @Path("/stationState")
+    public String cleanStationState() {
+
+        // Setup SQL connection
+        SqlConnector sql = new SqlConnector();
+        sql.importPropertiesFromFile(propertiesPath);
+
+        // Init cleaner class
+        StationStateDataCleaner cleaner = new StationStateDataCleaner(sql);
 
         // Start cleaning
         boolean state = cleaner.runCleaning();

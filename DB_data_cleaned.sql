@@ -58,7 +58,7 @@ CREATE TABLE `DW_weather` (
 
 # Cleaned states per station
 CREATE TABLE `DW_station_state` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL  AUTO_INCREMENT,
   `id_station` int(11) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `operational_bike_stands` int(11) DEFAULT NULL,
