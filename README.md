@@ -12,11 +12,12 @@ Les paramètres nécessaires sont :
 * dbpassword
 
 ## Lancement
- `java -jar Cleaning-Service.jar [-conf <propertiesFile>] [-port <port>]`
+ `java -jar Cleaning-Service.jar [-conf <propertiesFile>] [-port <port>] [-maxrow <maxrowtoclean>]`
  
  Paramètres :
  * port : port sur lequel le micro-service sera en écoute
  * conf : emplacement du fichier de configuration
+ * maxrow : le nombre maximum de lignes traitées en une fois
 
 ## Utilisation
 `http://localhost:8080/clean/weather`

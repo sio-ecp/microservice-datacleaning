@@ -1,5 +1,6 @@
 package org.sioecp.service.datacleaning;
 
+import org.sioecp.service.datacleaning.engine.DataCleaner;
 import org.sioecp.service.datacleaning.engine.StationDataCleaner;
 import org.sioecp.service.datacleaning.engine.WeatherDataCleaner;
 import org.sioecp.service.datacleaning.tools.SqlConnector;
@@ -14,13 +15,9 @@ public class DataCleaningService {
 
     private String propertiesPath;
 
-    public DataCleaningService(){
-        // Default value
-        this.propertiesPath = "config.properties";
-    }
-
-    public DataCleaningService(String propertiesPath){
+    public DataCleaningService(String propertiesPath, int maxRowToClean){
         this.propertiesPath = propertiesPath;
+        DataCleaner.MAXROWS = maxRowToClean;
     }
 
     @GET

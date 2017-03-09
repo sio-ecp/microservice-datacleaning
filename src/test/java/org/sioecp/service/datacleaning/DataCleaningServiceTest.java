@@ -26,7 +26,7 @@ class DataCleaningServiceTest {
         assertEquals(0,warehouseWeatherRows);
 
         // Exec cleaning service
-        DataCleaningService cleaner = new DataCleaningService(CONFIG_FILE_PATH);
+        DataCleaningService cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
         cleaner.cleanWeather();
 
         // Count DW_weather rows
@@ -34,7 +34,7 @@ class DataCleaningServiceTest {
         assertEquals(3,warehouseWeatherRows);
 
         // Exec cleaning service again: nothing more should be cleaned
-        cleaner = new DataCleaningService(CONFIG_FILE_PATH);
+        cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
         cleaner.cleanWeather();
 
         // Count DW_weather rows

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public abstract class DataCleaner {
 
-    protected static int MAXROWS = 1000;
+    public static int MAXROWS = 1000;
     protected SqlConnector dbconnector;
     public int cleanedRows = 0;
     public int lastCleanedRow = -1;
