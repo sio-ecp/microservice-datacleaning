@@ -128,6 +128,8 @@ CREATE TABLE `MS_DataCleaning_conf` (
 LOCK TABLES `MS_DataCleaning_conf` WRITE;
 /*!40000 ALTER TABLE `MS_DataCleaning_conf` DISABLE KEYS */;
 INSERT INTO `MS_DataCleaning_conf` VALUES ('weather_last_cleaned_row','2');
+INSERT INTO `MS_DataCleaning_conf` VALUES ('station_last_cleaned_row','1');
+INSERT INTO `MS_DataCleaning_conf` VALUES ('station_state_last_cleaned_row','1');
 /*!40000 ALTER TABLE `MS_DataCleaning_conf` ENABLE KEYS */;
 UNLOCK TABLES;
 
