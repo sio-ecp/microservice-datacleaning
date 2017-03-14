@@ -17,11 +17,11 @@ public class StationDataCleaner extends DataCleaner {
     // Copies Data Lake station table into DataWarehouse table, removes duplicates and separate city from it
     protected void fillCleanedTable(int firstRow, int lastRow, int id_city, String city_name){
         dbconnector.execWrite("INSERT INTO DW_station(id,station_number,city_id,station_name,address,banking,bonus,latitude,longitude,elevation)" +
-                " SELECT DISTINCT NULL, Station.station_number,"+id_city+",Station.station_name,Station.address,Station.banking," +
-                " Station.bonus, Station.latitude, Station.longitude, StationElevation.elevation" +
-                " FROM Station join StationElevation on Station.station_number=StationElevation.station_number and Station.contract_name=StationElevation.contract_name" +
-                " WHERE Station.id_station >= "+firstRow+" AND Station.id_station <= "+lastRow+" AND city_name='"+city_name+"'"+
-                " and not exists (select 1 from DW_station where station_number=Station.station_number)");
+                " SELECT DISTINCT NULL, station.station_number,"+id_city+",station.station_name,station.address,station.banking," +
+                " station.bonus, station.latitude, station.longitude, stationelevation.elevation" +
+                " FROM station join stationelevation on station.station_number=stationelevation.station_number and station.contract_name=stationelevation.contract_name" +
+                " WHERE station.id_station >= "+firstRow+" AND station.id_station < "+lastRow+" AND station.contract_name='"+city_name+"'"+
+                " and not exists (select 1 from DW_station where station_number=station.station_number)");
     }
 
 

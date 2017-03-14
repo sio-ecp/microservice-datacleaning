@@ -1,6 +1,6 @@
 package org.sioecp.service.datacleaning;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sioecp.service.datacleaning.tools.SqlConnector;
@@ -12,11 +12,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataCleaningServiceTest {
 
     private static final String CONFIG_FILE_PATH = "test/config-test.properties";
-    private SqlConnector sql;
-    private DataCleaningService cleaner;
+    private static SqlConnector sql;
+    private static DataCleaningService cleaner;
 
-    @BeforeEach
-    void initSql(){
+    @BeforeAll
+    static void initSql(){
         sql = new SqlConnector();
         sql.importPropertiesFromFile(CONFIG_FILE_PATH);
         cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
@@ -65,21 +65,17 @@ class DataCleaningServiceTest {
         assertEquals(0,warehouseStationStateRows);
 
         // Exec cleaning service
-        /*assertFalse(cleaner == null);
-        try {*/
         cleaner.cleanStation();
-        /*} catch (Exception e){
-            String out = "\n";
-            for (StackTraceElement el : e.getStackTrace()){
-                out += el.toString()+"\n";
-            }
-            fail(e.getMessage()+out);
-        }*/
         cleaner.cleanStationState();
+
 
         // Count DW_Station rows
         warehouseStationRows = sql.execCount("DW_station",null);
         warehouseStationStateRows = sql.execCount("DW_station_state",null);
+
+        assertEquals(10,warehouseStationRows);
+        assertEquals(10,warehouseStationStateRows);
+
 
         // Exec cleaning service again: nothing more should be cleaned
         cleaner.cleanStation();

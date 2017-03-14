@@ -16,13 +16,13 @@ public class StationStateDataCleaner extends DataCleaner {
 
     // Copies Data Lake station table into DataWarehouse table, removes duplicates and separate city from it
     protected void fillCleanedTable(int firstRow, int lastRow, int id_city, String city_name){
-        dbconnector.execWrite("INSERT INTO DW_station_state(id,id_Station,status,operational_bike_stands,available_bike_stands,"+
-                "available_bikes,last_update)"+
-                " SELECT DISTINCT NULL, DW_station.id,Station.status,Station.operational_bike_stands," +
-                " Station.available_bike_stands, Station.available_bikes, Station.last_update"+
-                " FROM Station,DW_station" +
-                " WHERE Station.id_station >= "+firstRow+" AND Station.id_station <= "+lastRow+
-                " and Station.station_number=DW_station.station_number");
+        dbconnector.execWrite("INSERT INTO DW_station_state(id,id_station,status,operational_bike_stands,available_bike_stands,"+
+                "available_bikes,last_update,movements)"+
+                " SELECT DISTINCT NULL, DW_station.id,station.status,station.operational_bike_stands," +
+                " station.available_bike_stands, station.available_bikes, station.last_update, NULL"+
+                " FROM station,DW_station" +
+                " WHERE station.id_station >= "+firstRow+" AND station.id_station < "+lastRow+
+                " and station.station_number=DW_station.station_number");
     }
 
 
