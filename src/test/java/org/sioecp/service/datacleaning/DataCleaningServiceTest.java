@@ -65,25 +65,25 @@ class DataCleaningServiceTest {
         assertEquals(0,warehouseStationStateRows);
 
         // Exec cleaning service
-        assertFalse(cleaner == null);
-        try {
-            cleaner.cleanStation();
-        } catch (Exception e){
+        /*assertFalse(cleaner == null);
+        try {*/
+        cleaner.cleanStation();
+        /*} catch (Exception e){
             String out = "\n";
             for (StackTraceElement el : e.getStackTrace()){
                 out += el.toString()+"\n";
             }
             fail(e.getMessage()+out);
-        }
-        //cleaner.cleanStationState();
+        }*/
+        cleaner.cleanStationState();
 
         // Count DW_Station rows
         warehouseStationRows = sql.execCount("DW_station",null);
         warehouseStationStateRows = sql.execCount("DW_station_state",null);
 
         // Exec cleaning service again: nothing more should be cleaned
-        //cleaner.cleanStation();
-        //cleaner.cleanStationState();
+        cleaner.cleanStation();
+        cleaner.cleanStationState();
 
         // Count DW_station rows
         int warehouseStationRows_1 = sql.execCount("DW_station",null);

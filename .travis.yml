@@ -15,7 +15,7 @@ before_install:
   - mysql filrouge_test < test/test-data.sql
 
 script:
-  - mvn -X -e package
+  - mvn package
 
 after_failure:
   - ls -l /home/travis/build/sio-ecp/microservice-datacleaning/target/surefire-reports
