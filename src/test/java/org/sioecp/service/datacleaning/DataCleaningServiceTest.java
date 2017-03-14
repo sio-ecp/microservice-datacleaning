@@ -1,5 +1,6 @@
 package org.sioecp.service.datacleaning;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sioecp.service.datacleaning.tools.SqlConnector;
@@ -12,11 +13,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataCleaningServiceTest {
 
     static final String CONFIG_FILE_PATH = "test/config-test.properties";
+    static SqlConnector sql;
+
+    @BeforeAll
+    static void initSql(){
+        sql = new SqlConnector();
+        sql.importPropertiesFromFile(CONFIG_FILE_PATH);
+    }
 
     @Test
     void TestWeatherCleaning(){
-        SqlConnector sql = new SqlConnector();
-        sql.importPropertiesFromFile(CONFIG_FILE_PATH);
 
         // Count Data lake weather rows
         int lakeWeatherRows = sql.execCount("weather",null);
@@ -48,12 +54,10 @@ class DataCleaningServiceTest {
 
     @Test
     void TestStationCleaning(){
-        SqlConnector sql = new SqlConnector();
-        sql.importPropertiesFromFile(CONFIG_FILE_PATH);
 
         // Count Data lake station and StationElevation rows
         int lakeStationRows = sql.execCount("station",null);
-        int lakeStationElevationRows = sql.execCount("StationElevation",null);
+        int lakeStationElevationRows = sql.execCount("stationelevation",null);
 
         // Count DW_Station and StationState rows
         int warehouseStationRows = sql.execCount("DW_station",null);
@@ -82,7 +86,7 @@ class DataCleaningServiceTest {
 
         // Ensure Data lake station rows werent touched
         int lakeStationRows_1 = sql.execCount("station",null);
-        int lakeStationElevationRows_1 = sql.execCount("StationElevation",null);
+        int lakeStationElevationRows_1 = sql.execCount("stationelevation",null);
         assertEquals(lakeStationRows,lakeStationRows_1);
         assertEquals(lakeStationElevationRows,lakeStationElevationRows_1);
     }
