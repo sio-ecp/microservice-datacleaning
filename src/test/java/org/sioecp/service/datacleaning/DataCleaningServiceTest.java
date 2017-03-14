@@ -66,7 +66,15 @@ class DataCleaningServiceTest {
 
         // Exec cleaning service
         assertFalse(cleaner == null);
-        //cleaner.cleanStation();
+        try {
+            cleaner.cleanStation();
+        } catch (Exception e){
+            String out = "\n";
+            for (StackTraceElement el : e.getStackTrace()){
+                out += el.toString();
+            }
+            fail(e.getMessage()+out);
+        }
         //cleaner.cleanStationState();
 
         // Count DW_Station rows
