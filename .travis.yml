@@ -15,7 +15,7 @@ before_install:
   - mysql filrouge_test < test/test-data.sql
 
 script:
-  - mvn package
+  - mvn -e -X package
 
 after_success:
   - ./travisres/deploy.sh

@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @DisplayName("Test Weather Data Cleaning")
 class DataCleaningServiceTest {
 
-    static final String CONFIG_FILE_PATH = "test/config-test.properties";
-    static SqlConnector sql;
-    static DataCleaningService cleaner;
+    private static final String CONFIG_FILE_PATH = "test/config-test.properties";
+    private static SqlConnector sql;
+    private static DataCleaningService cleaner;
 
     @BeforeAll
     static void initSql(){
