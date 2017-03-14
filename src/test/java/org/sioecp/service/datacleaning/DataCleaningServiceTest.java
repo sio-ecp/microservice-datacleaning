@@ -52,7 +52,7 @@ class DataCleaningServiceTest {
         assertEquals(lakeWeatherRows,lakeWeatherRows2);
     }
 
-    @Test
+    /*@Test
     void TestStationCleaning(){
 
         // Count Data lake station and StationElevation rows
@@ -88,5 +88,5 @@ class DataCleaningServiceTest {
         int lakeStationElevationRows_1 = sql.execCount("stationelevation",null);
         assertEquals(lakeStationRows,lakeStationRows_1);
         assertEquals(lakeStationElevationRows,lakeStationElevationRows_1);
-    }
+    }*/
 }
