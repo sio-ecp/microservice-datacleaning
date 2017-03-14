@@ -14,11 +14,13 @@ class DataCleaningServiceTest {
 
     static final String CONFIG_FILE_PATH = "test/config-test.properties";
     static SqlConnector sql;
+    static DataCleaningService cleaner;
 
     @BeforeAll
     static void initSql(){
         sql = new SqlConnector();
         sql.importPropertiesFromFile(CONFIG_FILE_PATH);
+        cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
     }
 
     @Test
@@ -32,7 +34,6 @@ class DataCleaningServiceTest {
         assertEquals(0,warehouseWeatherRows);
 
         // Exec cleaning service
-        DataCleaningService cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
         cleaner.cleanWeather();
 
         // Count DW_weather rows
@@ -40,7 +41,6 @@ class DataCleaningServiceTest {
         assertEquals(3,warehouseWeatherRows);
 
         // Exec cleaning service again: nothing more should be cleaned
-        cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
         cleaner.cleanWeather();
 
         // Count DW_weather rows
@@ -66,15 +66,14 @@ class DataCleaningServiceTest {
         assertEquals(0,warehouseStationStateRows);
 
         // Exec cleaning service
-        DataCleaningService cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
         cleaner.cleanStation();
         cleaner.cleanStationState();
 
         // Count DW_Station rows
         warehouseStationRows = sql.execCount("DW_station",null);
         warehouseStationStateRows = sql.execCount("DW_station_state",null);
+
         // Exec cleaning service again: nothing more should be cleaned
-        cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
         cleaner.cleanStation();
         cleaner.cleanStationState();
 
