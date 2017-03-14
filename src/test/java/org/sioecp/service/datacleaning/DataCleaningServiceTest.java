@@ -23,7 +23,7 @@ class DataCleaningServiceTest {
         cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
     }
 
-    /*@Test
+    @Test
     void TestWeatherCleaning(){
 
         // Count Data lake weather rows
@@ -50,7 +50,7 @@ class DataCleaningServiceTest {
         // Ensure Data lake weather rows werent touched
         int lakeWeatherRows2 = sql.execCount("weather",null);
         assertEquals(lakeWeatherRows,lakeWeatherRows2);
-    }*/
+    }
 
     @Test
     void TestStationCleaning(){
