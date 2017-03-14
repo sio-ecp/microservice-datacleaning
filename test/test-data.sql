@@ -1,37 +1,3 @@
--- MySQL dump 10.13  Distrib 5.7.16, for osx10.11 (x86_64)
---
--- Host: localhost    Database: filrouge
--- ------------------------------------------------------
--- Server version	5.7.16
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `DW_city`
---
-
-DROP TABLE IF EXISTS `DW_city`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `DW_city` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `DW_city`
---
 
 LOCK TABLES `DW_city` WRITE;
 /*!40000 ALTER TABLE `DW_city` DISABLE KEYS */;
@@ -39,91 +5,7 @@ INSERT INTO `DW_city` VALUES (1,'Paris');
 /*!40000 ALTER TABLE `DW_city` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `DW_station`
---
 
-DROP TABLE IF EXISTS `DW_station`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `DW_station` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `station_number` int(11) DEFAULT NULL,
-  `city_id` int(11) DEFAULT NULL,
-  `station_name` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `banking` tinyint(4) DEFAULT NULL,
-  `bonus` tinyint(4) DEFAULT NULL,
-  `latitude` float DEFAULT NULL,
-  `longitude` float DEFAULT NULL,
-  `elevation` float DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `city_id_idx` (`city_id`),
-  CONSTRAINT `city_id` FOREIGN KEY (`city_id`) REFERENCES `DW_city` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `DW_station`
---
-
-LOCK TABLES `DW_station` WRITE;
-/*!40000 ALTER TABLE `DW_station` DISABLE KEYS */;
-/*!40000 ALTER TABLE `DW_station` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-
-
---
--- Table structure for table `DW_weather`
---
-
-DROP TABLE IF EXISTS `DW_weather`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `DW_weather` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `city_id` int(11) DEFAULT NULL,
-  `weather_group` varchar(45) DEFAULT NULL,
-  `pressure` int(11) DEFAULT NULL,
-  `humidity_percentage` float DEFAULT NULL,
-  `temperature` float DEFAULT NULL,
-  `min_temperature` float DEFAULT NULL,
-  `max_temperature` float DEFAULT NULL,
-  `wind_speed` float DEFAULT NULL,
-  `wind_direction` float DEFAULT NULL,
-  `cloudiness_percentage` int(11) DEFAULT NULL,
-  `rain_quantity` int(11) DEFAULT NULL,
-  `snow_quantity` int(11) DEFAULT NULL,
-  `sun_set` int(11) DEFAULT NULL,
-  `sun_rise` int(11) DEFAULT NULL,
-  `calculation_time` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `city_id_idx` (`city_id`),
-  CONSTRAINT `city_id2` FOREIGN KEY (`city_id`) REFERENCES `DW_city` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
-
-
---
--- Table structure for table `MS_DataCleaning_conf`
---
-
-DROP TABLE IF EXISTS `MS_DataCleaning_conf`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `MS_DataCleaning_conf` (
-  `name` varchar(45) NOT NULL,
-  `value` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `MS_DataCleaning_conf`
---
 
 LOCK TABLES `MS_DataCleaning_conf` WRITE;
 /*!40000 ALTER TABLE `MS_DataCleaning_conf` DISABLE KEYS */;
@@ -133,37 +15,6 @@ INSERT INTO `MS_DataCleaning_conf` VALUES ('station_state_last_cleaned_row','1')
 /*!40000 ALTER TABLE `MS_DataCleaning_conf` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `station`
---
-
-DROP TABLE IF EXISTS `station`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `station` (
-  `id_station` int(11) NOT NULL AUTO_INCREMENT,
-  `station_number` int(11) NOT NULL,
-  `station_name` varchar(255) NOT NULL,
-  `contract_name` varchar(255) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `banking` tinyint(1) NOT NULL,
-  `bonus` tinyint(1) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `operational_bike_stands` int(11) NOT NULL,
-  `available_bike_stands` int(11) NOT NULL,
-  `available_bikes` int(11) NOT NULL,
-  `last_update` bigint(20) NOT NULL,
-  `latitude` float NOT NULL,
-  `longitude` float NOT NULL,
-  `city_name` varchar(255) NOT NULL,
-  `country_code` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_station`)
-) ENGINE=InnoDB AUTO_INCREMENT=4908 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `station`
---
 
 LOCK TABLES `station` WRITE;
 /*!40000 ALTER TABLE `station` DISABLE KEYS */;
@@ -171,28 +22,6 @@ INSERT INTO `station` VALUES (1,31705,'31705 - CHAMPEAUX (BAGNOLET)','Paris','RU
 /*!40000 ALTER TABLE `station` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `stationelevation`
---
-
-DROP TABLE IF EXISTS `stationelevation`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `stationelevation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `station_number` int(11) NOT NULL,
-  `latitude` float NOT NULL,
-  `longitude` float NOT NULL,
-  `elevation` float NOT NULL,
-  `resolution` float NOT NULL,
-  `contract_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `stationelevation`
---
 
 LOCK TABLES `stationelevation` WRITE;
 /*!40000 ALTER TABLE `stationelevation` DISABLE KEYS */;
@@ -202,54 +31,9 @@ UNLOCK TABLES;
 
 
 
---
--- Table structure for table `weather`
---
-
-DROP TABLE IF EXISTS `weather`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `weather` (
-  `id_weather` int(11) NOT NULL AUTO_INCREMENT,
-  `weather_group` varchar(255) NOT NULL,
-  `pressure` int(11) NOT NULL,
-  `humidity_percentage` float NOT NULL,
-  `temperature` float NOT NULL,
-  `min_temperature` float NOT NULL,
-  `max_temperature` float NOT NULL,
-  `wind_speed` float NOT NULL,
-  `wind_direction` float NOT NULL,
-  `cloudiness_percentage` int(11) NOT NULL,
-  `rain_quantity` int(11) NOT NULL,
-  `snow_quantity` int(11) NOT NULL,
-  `sun_set` bigint(20) NOT NULL,
-  `sun_rise` bigint(20) NOT NULL,
-  `calculation_time` bigint(20) NOT NULL,
-  `latitude` float NOT NULL,
-  `longitude` float NOT NULL,
-  `city_name` varchar(255) NOT NULL,
-  `country_code` varchar(255) NOT NULL,
-  PRIMARY KEY (`id_weather`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `weather`
---
 
 LOCK TABLES `weather` WRITE;
 /*!40000 ALTER TABLE `weather` DISABLE KEYS */;
 INSERT INTO `weather` VALUES (1,'Mist',1019,84,272.82,272.15,273.15,2.1,310,75,0,0,1486832742,1486796679,1486807200,48.85,2.35,'Paris','2988507'),(2,'Rain',996,81,281.36,280.15,283.15,9.3,250,75,0,0,1488216723,1488177302,1488207600,48.85,2.35,'Paris','2988507'),(3,'Rain',996,81,281.36,280.15,283.15,9.3,250,75,0,0,1488216723,1488177302,1488207600,48.85,2.35,'Paris','2988507'),(4,'Rain',996,81,281.36,280.15,283.15,9.3,250,75,0,0,1488216723,1488177302,1488207600,48.85,2.35,'Paris','2988507'),(5,'Clouds',994,65,280.13,279.15,281.15,7.7,220,90,0,0,1488216737,1488177285,1488222000,48.85,2.35,'Paris','2988507'),(6,'Clouds',994,65,280.13,279.15,281.15,7.7,220,90,0,0,1488216737,1488177285,1488222000,48.85,2.35,'Paris','2988507'),(7,'Clouds',1017,50,285.15,285.15,285.15,5.7,240,75,0,0,1488476204,1488436152,1488463200,48.85,2.35,'Paris','2988507'),(8,'Clouds',1017,50,285.15,285.15,285.15,5.7,240,75,0,0,1488476204,1488436152,1488463200,48.85,2.35,'Paris','2988507');
 /*!40000 ALTER TABLE `weather` ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-03-06 20:47:38

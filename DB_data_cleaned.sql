@@ -106,3 +106,62 @@ CREATE TABLE `DW_station_sampled` (
   KEY `id_station_idx` (`id_station`),
   CONSTRAINT `id_st3` FOREIGN KEY (`id_station`) REFERENCES `DW_station` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+#
+# Data Lake Tables
+#
+
+CREATE TABLE `station` (
+  `id_station` int(11) NOT NULL AUTO_INCREMENT,
+  `station_number` int(11) NOT NULL,
+  `station_name` varchar(255) NOT NULL,
+  `contract_name` varchar(255) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `banking` tinyint(1) NOT NULL,
+  `bonus` tinyint(1) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `operational_bike_stands` int(11) NOT NULL,
+  `available_bike_stands` int(11) NOT NULL,
+  `available_bikes` int(11) NOT NULL,
+  `last_update` bigint(20) NOT NULL,
+  `latitude` float NOT NULL,
+  `longitude` float NOT NULL,
+  `city_name` varchar(255) NOT NULL,
+  `country_code` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_station`)
+) ENGINE=InnoDB AUTO_INCREMENT=4908 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `stationelevation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `station_number` int(11) NOT NULL,
+  `latitude` float NOT NULL,
+  `longitude` float NOT NULL,
+  `elevation` float NOT NULL,
+  `resolution` float NOT NULL,
+  `contract_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `weather` (
+  `id_weather` int(11) NOT NULL AUTO_INCREMENT,
+  `weather_group` varchar(255) NOT NULL,
+  `pressure` int(11) NOT NULL,
+  `humidity_percentage` float NOT NULL,
+  `temperature` float NOT NULL,
+  `min_temperature` float NOT NULL,
+  `max_temperature` float NOT NULL,
+  `wind_speed` float NOT NULL,
+  `wind_direction` float NOT NULL,
+  `cloudiness_percentage` int(11) NOT NULL,
+  `rain_quantity` int(11) NOT NULL,
+  `snow_quantity` int(11) NOT NULL,
+  `sun_set` bigint(20) NOT NULL,
+  `sun_rise` bigint(20) NOT NULL,
+  `calculation_time` bigint(20) NOT NULL,
+  `latitude` float NOT NULL,
+  `longitude` float NOT NULL,
+  `city_name` varchar(255) NOT NULL,
+  `country_code` varchar(255) NOT NULL,
+  PRIMARY KEY (`id_weather`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;

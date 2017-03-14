@@ -11,6 +11,7 @@ before_install:
   - tar xvf travisres.tar
   - cp travisres/config-test.properties test/
   - mysql -e 'CREATE DATABASE filrouge_test;'
+  - mysql filrouge_test < DB_data_cleaned.sql
   - mysql filrouge_test < test/test-data.sql
 
 script:
