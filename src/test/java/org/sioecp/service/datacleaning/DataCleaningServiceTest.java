@@ -1,12 +1,10 @@
 package org.sioecp.service.datacleaning;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sioecp.service.datacleaning.tools.SqlConnector;
 
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -68,16 +66,16 @@ class DataCleaningServiceTest {
 
         // Exec cleaning service
         assertFalse(cleaner == null);
-        cleaner.cleanStation();
-        cleaner.cleanStationState();
+        //cleaner.cleanStation();
+        //cleaner.cleanStationState();
 
         // Count DW_Station rows
         warehouseStationRows = sql.execCount("DW_station",null);
         warehouseStationStateRows = sql.execCount("DW_station_state",null);
 
         // Exec cleaning service again: nothing more should be cleaned
-        cleaner.cleanStation();
-        cleaner.cleanStationState();
+        //cleaner.cleanStation();
+        //cleaner.cleanStationState();
 
         // Count DW_station rows
         int warehouseStationRows_1 = sql.execCount("DW_station",null);
