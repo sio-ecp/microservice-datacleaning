@@ -1,6 +1,7 @@
 package org.sioecp.service.datacleaning;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.sioecp.service.datacleaning.tools.SqlConnector;
@@ -13,11 +14,11 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataCleaningServiceTest {
 
     private static final String CONFIG_FILE_PATH = "test/config-test.properties";
-    private static SqlConnector sql;
-    private static DataCleaningService cleaner;
+    private SqlConnector sql;
+    private DataCleaningService cleaner;
 
-    @BeforeAll
-    static void initSql(){
+    @BeforeEach
+    void initSql(){
         sql = new SqlConnector();
         sql.importPropertiesFromFile(CONFIG_FILE_PATH);
         cleaner = new DataCleaningService(CONFIG_FILE_PATH,1000);
@@ -66,6 +67,7 @@ class DataCleaningServiceTest {
         assertEquals(0,warehouseStationStateRows);
 
         // Exec cleaning service
+        assertFalse(cleaner == null);
         cleaner.cleanStation();
         cleaner.cleanStationState();
 
