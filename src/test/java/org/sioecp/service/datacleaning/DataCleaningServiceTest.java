@@ -71,7 +71,7 @@ class DataCleaningServiceTest {
         } catch (Exception e){
             String out = "\n";
             for (StackTraceElement el : e.getStackTrace()){
-                out += el.toString();
+                out += el.toString()+"\n";
             }
             fail(e.getMessage()+out);
         }

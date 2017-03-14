@@ -35,7 +35,7 @@ public class StationStateDataCleaner extends DataCleaner {
 
     // Returns the latest row number added to the Data Lake
     protected int getLastDLRow() {
-        List<String> res = dbconnector.execRead("SELECT id_station FROM Station " +
+        List<String> res = dbconnector.execRead("SELECT id_station FROM station " +
                 "ORDER BY id_station DESC " +
                 "LIMIT 1").get(0);
         return Integer.parseInt(res.get(0));
