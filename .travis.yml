@@ -17,6 +17,11 @@ before_install:
 script:
   - mvn -e -X package
 
+after_failure:
+  - ls -l /home/travis/build/sio-ecp/microservice-datacleaning/target/surefire-reports
+  - cat /home/travis/build/sio-ecp/microservice-datacleaning/target/surefire-reports/*.xml
+  - cat /home/travis/build/sio-ecp/microservice-datacleaning/target/surefire-reports/*.txt
+
 after_success:
   - ./travisres/deploy.sh
 
