@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-/**
- * Created by marin on 21/02/2017.
- */
+
 public class SqlConnector {
 
     private String dburl = "jdbc:mysql://localhost:3306/db";
@@ -53,7 +51,8 @@ public class SqlConnector {
             connection = DriverManager.getConnection(dburl, dbuser, dbpassword);
         }
         catch ( SQLException e ) {
-                return null;
+            prinSqlError(e,null);
+            return null;
         }
         return connection;
     }
@@ -75,6 +74,7 @@ public class SqlConnector {
             status = statement.executeUpdate(query);
         }
         catch (SQLException e){
+            prinSqlError(e,query);
             return status;
         }
         finally {
@@ -106,6 +106,7 @@ public class SqlConnector {
             }
         }
         catch (SQLException e){
+            prinSqlError(e,query);
             return null;
         }
         finally {
@@ -119,5 +120,11 @@ public class SqlConnector {
         if (where != null)
             query += " WHERE "+where;
         return Integer.parseInt(execRead(query).get(0).get(0));
+    }
+
+    private void prinSqlError(SQLException e,String query){
+        System.err.println("SQL Exception "+e.getErrorCode()+" "+e.getMessage());
+        if (query != null)
+            System.err.println("Query: "+query);
     }
 }
