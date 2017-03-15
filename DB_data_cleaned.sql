@@ -19,7 +19,7 @@ CREATE TABLE `DW_station` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `station_number` int(11) DEFAULT NULL,
   `city_id` int(11) DEFAULT NULL,
-  `station_name` varchar(45) DEFAULT NULL,
+  `station_name` varchar(255) DEFAULT NULL,
   `address` varchar(255) DEFAULT NULL,
   `banking` tinyint(4) DEFAULT NULL,
   `bonus` tinyint(4) DEFAULT NULL,
